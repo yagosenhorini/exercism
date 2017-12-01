@@ -2,13 +2,12 @@ class Matrix {
     constructor(texto) {
         this.matriz = texto;
         this.rows = [];
-        this.rows[0] = [];
-        this.rows[1] = [];
 
         var a = this.matriz.split('\n');
-        var b = a[0].split(' ');
+        var b = a[0].split('');
+        var c = b[0].toString();
         console.log(b);
-        this.rows.push(parseFloat(b));
+        this.rows.push(parseInt(b));
         console.log(this.rows);
     }
 }
