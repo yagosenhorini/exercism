@@ -10,10 +10,13 @@ class Matrix {
             this.rows[i] = a[i].split(' ');
 
             for (let j = 0; j < this.rows[i].length; j++) {
-                var temp = this.rows[i];
-                temp[j] = Number(temp[j]);
+                var temp2 = this.rows[i][j];
+                this.rows[i][j] = Number(this.rows[i][j]);
+                if (this.columns[j] == undefined) {
+                    this.columns[j] = [];
+                }
+                this.columns[j].push(Number(temp2));
             }
-
         }
 
     }
