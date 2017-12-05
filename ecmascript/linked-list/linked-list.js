@@ -1,53 +1,80 @@
-class Node {
-    constructor(data, next = null, prev = null) {
-        this._data = data;
-        this._next = next;
-        this._prev = prev;
-    }
-
-    get data() {
-        return this._data;
-    }
-
-    get next() {
-        return this._next;
-    }
-    set next(value) {
-        this._next = value;
-    }
-
-    get prev() {
-        return this._prev;
-    }
-
-    set prev(value) {
-        this._prev = value;
-    }
-
-}
-
 export default class LinkedList {
-    constructor() {
+    constructor(prev) {
+        this.prev = prev;
+        this.next = null;
+        this.value = null;
         this.first = null;
         this.last = null;
-        this.cont = 0;
+        this._count = 0;
     }
 
-    push(list) {
-        if (this.first == null) {
-            this.first = this.last;
+
+    push(n) {
+        if (this.last == null) {
+            if (this.value !== null) {
+                if (this.next === null) {
+                    this.next = new LinkedList();
+                }
+                this.next.push(n);
+            } else {
+                this.value = n;
+            }
+        } else {
+            this.last = this.last.next = new LinkedList(this);
         }
+        this._count++;
     }
 
-    pop(value) {
+    pop() {
+        if (this.next !== null) {
+            var retorno = this.next.pop();
+            if (retorno !== null) {
+                return retorno;
+            }
+        }
+        var ret = this.value;
+        this.value = null;
+        return ret;
+        this._count--;
+    }
+
+
+    shift() {
+        if (this.value !== null) {
+            var valor = this.value;
+            if (this.next !== null) {
+                this.value = this.next.value;
+                if (this.next.next !== null) {
+                    this.next = this.next.next;
+                }
+                return valor;
+                this._count--;
+            }
+        }
 
     }
 
-    shift(value) {
-
+    unshift(n) {
+        if (this.value !== null) {
+            var atual = this.value;
+            this.value = n;
+            if (this.next !== null) {
+                var prox = this.next;
+                this.next = new LinkedList();
+                this.next.value = atual;
+                this.next.next = prox;
+            } else {
+                this.next = new LinkedList();
+                this.next.value = atual;
+            }
+        } else {
+            this.value = n;
+        }
+        this._count++;
     }
 
-    unshift(value) {
-
+    count() {
+        return this._count;
     }
+
 }
